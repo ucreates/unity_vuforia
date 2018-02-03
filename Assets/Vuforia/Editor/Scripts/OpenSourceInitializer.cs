@@ -4,11 +4,11 @@ Confidential and Proprietary - Protected under copyright and other laws.
 Vuforia is a trademark of PTC Inc., registered in the United States and other
 countries.
 ===============================================================================*/
-using System.Linq;
-using UnityEditor;
-using UnityEngine;
 using Vuforia;
 using Vuforia.EditorClasses;
+using UnityEngine;
+using UnityEditor;
+using System.Linq;
 /// <summary>
 /// Creates connection between open source files and the Vuforia library.
 /// Do not modify.

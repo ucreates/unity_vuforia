@@ -5,25 +5,21 @@ Vuforia is a trademark of PTC Inc., registered in the United States and other
 countries.
 =========================================================================*/
 Shader "Custom/DepthContour" {
-    Properties{
-        _ContourColor("Contour Color", Color) = (1,1,1,1)
-        _SurfaceColor("Surface Color", Color) = (0.5,0.5,0.5,1)
-        _DepthThreshold("Depth Threshold", Float) = 0.002
-    }
+    Properties { _ContourColor("Contour Color", Color) = (1, 1, 1, 1)_SurfaceColor("Surface Color", Color) = (0.5, 0.5, 0.5, 1)_DepthThreshold("Depth Threshold", Float) = 0.002 }
 
     SubShader {
-        Tags { "Queue" = "Geometry" "RenderType" = "Transparent" }
+        Tags {
+            "Queue" =
+                "Geometry"
+                "RenderType" = "Transparent"
+        }
 
         Pass {
-            Cull Back
-            Blend SrcAlpha OneMinusSrcAlpha
-
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-            #include "UnityCG.cginc"
-
-            uniform sampler2D _CameraDepthTexture;
+            Cull Back Blend SrcAlpha OneMinusSrcAlpha CGPROGRAM
+#pragma vertex vert
+#pragma fragment frag
+#include "UnityCG.cginc"
+                uniform sampler2D _CameraDepthTexture;
             uniform float4 _ContourColor;
             uniform float4 _SurfaceColor;
             uniform float _DepthThreshold;
@@ -34,19 +30,17 @@ Shader "Custom/DepthContour" {
                 float depth : TEXCOORD1;
             };
 
-            v2f vert(appdata_base v) 
-            {
+            v2f vert(appdata_base v) {
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 o.screenPos = ComputeScreenPos(o.pos);
-                
+
                 COMPUTE_EYEDEPTH(o.depth);
                 o.depth = (o.depth - _ProjectionParams.y) / (_ProjectionParams.z - _ProjectionParams.y);
                 return o;
             }
 
-            half4 frag(v2f i) : COLOR 
-            {
+            half4 frag(v2f i) : COLOR {
                 float2 uv = i.screenPos.xy / i.screenPos.w;
                 float du = 1.0 / _ScreenParams.x;
                 float dv = 1.0 / _ScreenParams.y;

@@ -2,7 +2,7 @@
 # Unity generated #
 # =============== #
 Temp/
-obj/
+[o]bj/
 UnityGenerated/
 Library/
 Assets/Splash/iOS/Build/
